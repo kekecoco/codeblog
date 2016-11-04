@@ -1,3 +1,7 @@
-# codeblog
-My code blog
-start from 2016-09-06
+Codeblog
+========  
+My Code Tech Blog  
+
+[![CodeBlog version][1.0]](#)
+[![Build status][shield-build]](#)
+[![MIT licensed][shield-license]](#)
