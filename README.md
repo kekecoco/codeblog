@@ -2,6 +2,5 @@ Codeblog
 ========  
 My Code Tech Blog  
 
-[![CodeBlog version][1.0]](#)
-[![Build status][shield-build]](#)
-[![MIT licensed][shield-license]](#)
+[![Codeblog Version](https://poser.pugx.org/yiisoft/yii2/v/stable.png)](#)
+[![Build Status](https://img.shields.io/travis/yiisoft/yii2.svg)](#)
