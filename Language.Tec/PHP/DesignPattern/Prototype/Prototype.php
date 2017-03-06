@@ -17,7 +17,7 @@ class Prototype extends PrototypeAbstract {
 
 	public function __set($name, $value)
 	{
-		$this->$name = $value;
+		$this->name = $value;
 	}
 
 	public function getName()
