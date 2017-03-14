@@ -7,7 +7,7 @@
 
 /**
  * 名称:二分法数据查找(Binary Search)
- * 时间复杂度:O(log2n)
+ * 时间复杂度:O(log(n))
  */
 function binarySearch(array $searchArr, $searchNum) {
 	if (!is_array($searchArr) || empty($searchArr)) {
