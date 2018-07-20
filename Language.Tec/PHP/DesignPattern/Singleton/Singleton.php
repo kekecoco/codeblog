@@ -33,7 +33,17 @@ class Singleton {
 	}
 
 	/**
-	 * clone
+	 * 禁止深度复制
 	 */
 	private function __clone(){}
+
+    /**
+     * 禁止serialize
+     */
+	private function __sleep() {}
+
+    /**
+     * 禁止unserialize
+     */
+    private function __wakeup() {}
 }
