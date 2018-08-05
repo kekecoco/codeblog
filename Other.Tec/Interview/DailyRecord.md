@@ -49,5 +49,15 @@ BIGINT	    8	              -2^63	                0	                    2^63-1	  
 ```
 3. 取出文件的前xx行数据.
 head -n 100 demo.txt
-4. 
+4. 移位运算.
+$a << $b	Shift left（左移）	将 $a 中的位向左移动 $b 次（每一次移动都表示“乘以 2”）。
+$a >> $b	Shift right（右移）	将 $a 中的位向右移动 $b 次（每一次移动都表示“除以 2”）。
+5. PHP的session存储配置.
+自定义session存储: 
+session.save_handler = redis
+session.save_path = "tcp://127.0.0.1:6379"
+注: 
+1. 自定义会话管理器是有各扩展实现的.  
+2. 需要使用session_set_save_handle()函数或SessionHandlerInterface类或者通过继承SessionHandler类来扩展内置的管理器,
+从而达到自定义会话保存机制的目的.  
 
