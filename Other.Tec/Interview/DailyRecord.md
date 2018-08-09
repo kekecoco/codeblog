@@ -119,11 +119,27 @@ $a[] = &$a;
  * 网络层
  * 数据链路层
  * 物理层
-2. 动态规划:
-
 ####0X05 新浪微博
 1. MySQL binlog日志的三种格式:
  * statement: 每一条会修改数据的SQL都会记录在binlog中.
  * Row: 不记录SQL语句上下文的相关信息,仅保存哪些记录被修改.(仅需要记录一条数据被修改成了什么)
  * mixed level: 是以上两种格式混合使用, 一般的语句修改使用statement格式保存binlog,如一些函数的使用, statement无法完成主从复制的操作.
  需要使用row格式保存binlog.
+2. register_shutdown_function():
+ * 注册一个会在PHP终止时执行的函数.
+ * 注册一个callback, 它会在脚本执行完成之或者exit()后被调用.
+ * 可以多次调用register_shutdown_function(),这些被注册的回调会按照他们注册的顺序被依次调用.如果你在注册的方法内部调用exit(),那么所有的
+ 处理会被终止,并且其他注册的终止回调也不会再被执行.
+ * 如果进程被信号SIGTERM或SIGKILL杀死,那么终止函数将不会被调用.尽管你无法中断SIGKILL,但你可以通过pcntl_signal()来捕获SIGTERM,通过
+ 在其中调用exit()来进行一个正常的终止.
+ * 如果脚本执行时间超时被终止,该函数还是可以继续执行.
+3. mysqli无法设置超时时间:
+ * mysqli仅支持连接超时时间,无法设置查询超时时间.
+ * mysqli底层超时时间设置单位为秒,最少配置1秒.
+ * mysqli底层的read会重试两次,所以实际时间是3秒.
+ * MYSQL_OPT_READ_TIMEOUT = 11; MYSQL_OPT_WRITE_TIMEOUT = 12.
+####0X06 斗鱼直播
+1. MySQL GROUP BY可以对多列进行分组. 
+ 
+ 
+ 
