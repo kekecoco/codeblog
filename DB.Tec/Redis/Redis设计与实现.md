@@ -40,7 +40,35 @@
    * 带表头指针和表尾指针：通过list结构的head指针和tail指针，程序获取链表的表头节点和表尾节点的复杂度为O(1).
    * 带链表长度计数器：程序使用list结构的len属性来对list持有的链表节点进行计数，程序获取链表中节点数量的复杂度为O(1).
    * 多态：链表可以用来保存各种不同类型的值。
-
+2. 链表和链表节点实现:
+    ```c 
+    typedef struct listNode{
+        // 前置节点
+        struct listNode *prev;
+        // 后置节点
+        struct listNode *next;
+        void value;
+    }listNode;   
+    
+    typedef struct list{
+        // 表头节点
+        listNode *head;
+        // 表尾节点
+        listNode *tail;
+        // 链表所包含的节点数
+        unsign long len;
+        // 节点值复制函数
+        void *(*dup)(void *ptr)
+        // 节点值释放函数
+        void (*free)(void *ptr)
+        // 节点值对比函数
+        int (*match)(void *ptr, void *key)
+    }
+    ```
+    + dup函数用于复制链表节点所保存的值.
+    + free函数用于释放链表节点所保存的值.
+    + match函数则用于对比链表节点和另一个输入值是否相等.
+    
 ##### 第四章 字典
 
 1. Redis的数据库是使用字典来实现的。
