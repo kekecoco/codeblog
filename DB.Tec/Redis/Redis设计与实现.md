@@ -74,6 +74,55 @@
 1. Redis的数据库是使用字典来实现的。
 2. Redis的字典使用哈希表作为底层实现，一个哈希表里面可以有多个哈希表节点，而每个哈希表节点就保存了字典中的一个键值对。
 3. Redis的哈希表使用链地址法来解决键冲突，每个哈希表节点都有一个next指针，多个哈希表节点可以用next指针构成一个单向链表，被分配到同一个索引上的多个节点可以用这个单向链表连接起来。
+4. 哈希表的实现:
+    ```c 
+    typedef struct dicht{
+        // 哈希表数组
+        dictEntry **table;
+        // 哈希表大小
+        unsigned long size;
+        // 哈希表大小掩码,用于计算索引值
+        // 总是等于size-1
+        unsigned long sizemask;
+        // 该哈希表内已有节点的数量
+        unsigned long used;
+    } dictht;
+    注: table属性是一个数组,数组中的每个元素都是指向dictEntry结构的指针,每个dictEntry都保存着一个键值对.
+    size属性记录了哈希表的大小,也即是table数组的大小.
+    used属性记录了哈希表目前已有节点(键值对)的数量.
+    sizemask这个属性和哈希值一起决定一个键应该被放到table数组的哪个索引上.
+    ```
+5. 哈希表节点:
+    ```c 
+    typedef struct dictEntry{
+        // 键
+        void *key;
+        // 值
+        union {
+            void *val;
+            uint64_tu64;
+            int64_ts64;
+        } v;
+        // 指向下个哈希表的节点,形成单链表
+        struct dictEntry *next;
+    }
+    ```
+6. 字典:
+    ```C
+    typedef struct dict{
+        // 类型特定函数
+        dictType *type;
+        // 私有数据
+        void *privdata;
+        // 哈希表
+        dictht ht[2];
+        // rehash索引
+        // 当rehash不进行时,值为-1
+        int trehashidx;
+    }dict;
+    ```
+7. 哈希算法:
+    + 当要将一个新的键值对添加到字典里时,程序需要先根据键值对的键计算出哈希值和索引值,然后再根据索引值,将包含新键值对的哈希表节点放到指定的索引上面.
 
 ##### 第五章 跳跃表
 
