@@ -1,3 +1,6 @@
 /nbproject/private/
 /nbproject
-.gitignore
+.DS_Store
+.idea/
+Language.Tec/.DS_Store
+Language.Tec/Java/.DS_Store
