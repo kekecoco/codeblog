@@ -62,7 +62,14 @@
         + 显式的启动事务的语句,begin或start Transaction.配套的提交语句是commit,回滚语句是roll back.
         + set autocommit=0,这个命令会将这个线程的自动提交关掉.意味着如果你只执行一个select语句都会启动事务,而且这个事务不会自动提交.这个事务一直持续到主动执行commit或rollback语句,或者链接断掉.
 9. 索引
-    +         
+    + 在InnoDB里,主键索引又被称为聚簇索引.
+    + 重建索引的做法是合理的,可以达到省空间的目的.不论是删除主键还是创建主键都会使整个表重建.
+10. 全局锁和表锁:
+    + 全局锁: 对整个数据库实例加锁.
+        + MySQL提供了一个加全局读锁的方法, Flush tables with read lock.
+        + 全局锁的使用场景是做全库的逻辑备份.
+        + mysqldump的single-transaction适用于支持事务的存储引擎,而像myIsam就只能使用加全局锁的方式进行数据备份.
+                 
 
 
 
