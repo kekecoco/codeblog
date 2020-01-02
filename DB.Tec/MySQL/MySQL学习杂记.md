@@ -69,8 +69,23 @@
         + MySQL提供了一个加全局读锁的方法, Flush tables with read lock.
         + 全局锁的使用场景是做全库的逻辑备份.
         + mysqldump的single-transaction适用于支持事务的存储引擎,而像myIsam就只能使用加全局锁的方式进行数据备份.
-                 
-
+    + 表级锁: 
+        + MySQL里的表级锁有两种: 一种是表锁,一种是元数据锁(meta data lock, MDL)
+        + 表锁:
+            + 语法: lock tables ... read/write,可以使用unlock tables主动释放锁.
+            + lock tables除了限制其他线程的读写外,也限定了本线程接下来的操作.
+        + MDL锁:
+            + MDL锁不需要显式使用,在访问一个表的时候会被自动加上.
+            + 当对一个表做增删改查操作的时候,加MDL读锁;当要对表做结构变更,加MDL写锁.
+            + 读锁之间不互斥.
+            + 读写锁之间,写锁之间是互斥的,用来保证变更表结构的安全性.          
+11. 行锁:
+    + 死锁:
+        + 在InnoDB中,innodb_lock_wait_timeout=50s.设置发生死锁的超时时间.
+        + innodb_deadlock_detect=on,主动死锁检测.
+    + 如果事务中,需要锁多个行,要把最可能造成锁冲突最可能影响系统并发度的锁的申请时间往后放.
+12. 
+      
 
 
 
