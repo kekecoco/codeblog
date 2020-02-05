@@ -84,7 +84,6 @@
         + 在InnoDB中,innodb_lock_wait_timeout=50s.设置发生死锁的超时时间.
         + innodb_deadlock_detect=on,主动死锁检测.
     + 如果事务中,需要锁多个行,要把最可能造成锁冲突最可能影响系统并发度的锁的申请时间往后放.
-12. 
       
 
 
