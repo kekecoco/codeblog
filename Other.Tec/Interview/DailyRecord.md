@@ -209,6 +209,27 @@ $a[] = &$a;
 #### 0X02 好未来一面
 1. MySQL的脏读和幻读:
     * 脏读: 当一个事务正在访问数据,并且对数据做了修改,而这种修改还没有提交到数据库中,这时,另外一个事务也访问了这个数据,然后使用了这个数据.
+2. PHP的生命周期:
+    * php_module_startup: 常量注册;PHP核心配置及Zend ini变量配置;超全局变量注册;PHP扩展注册及启动.
+    * php_request_startup: gc初始化;初始化编辑器;初始化词法编辑器;php扩展启动.
+    * php_execute_script: zend_execute_scripts;zend_compile_file; zend_execute zvm的执行入口.
+    * php_request_shutdown: 依次调用通过register_shutdown_function注册的钩子函数;
+    调用析构函数;将所有输出flush;依次调用各扩展的shutdown函数;关闭output;释放register_shutdown_function;
+    销毁全局变量;关闭内存管理器.
+    * php_module_shutdown: 调用sapi_flush;zend_shutdown; 清理ini HashTable元素; 销毁EG; 关闭output;
+    释放PG.
+3. MySQL中char, varchar和text:
+    * char长度固定,即每条数据占用等长字节空间.
+        * char(n)中的n表示字符数,最大长度是255个字符,如果是utf8的编码格式,char类型占255*3个字节.
+    * varchar可变长度,可以设置最大长度,适合长度可变的属性.
+        * varchar(n)中的n表示字符数,最大空间65535个字节,存放字符数量和字符集有关系.
+        * varchar的实际范围是65532或65533,因为内容头部会占用1或2两个字节保存该字符串的长度.
+    * text不设置长度,当不知道属性的最大长度时,适合使用text.
+        * text占用的最大空间也是65535个字节.
+4. HTTP1.0, HTTP1.1,HTTP2.0的区别:
+    * HTTP1.0需要keep-alive参数来告知服务器建立一个长连接,HTTP1.1默认使用长连接.
+    * HTTP2.0使用了多路复用技术,做到同一个链接并发处理多个请求.
+    * HTTP1.1不支持header数据的压缩,HTTP2.0使用HPACK算法对header的数据进行压缩,这样体积小了,在网络传输上也就更快.
 #### 0X03 自如一面
 1. 二叉树遍历:
     * 前序遍历: 对于树中的任意节点来说,先打印这个节点,然后在打印它的左子树,最后打印它的右子树.
@@ -219,5 +240,4 @@ $a[] = &$a;
     * 范围解析操作符: ::,可以用于访问静态成员,类常量.
     * 在类内部可以使用new self,new static,new parent创建新对象.
     * static::只能用于静态属性.
-
  
