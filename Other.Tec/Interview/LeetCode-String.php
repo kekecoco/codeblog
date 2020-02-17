@@ -26,3 +26,33 @@ function getMaxLengthSubString($subjectString) {
 }
 $str = "abcabcbb";
 var_dump(getMaxLengthSubString($str));
+
+/**
+ * 给定一个只包括"(",")"的字符串,判断字符串是否有效.注: 空字符串是有效字符串
+ *
+ */
+function isStringValid($subjectString) {
+	if (mb_strlen($subjectString) < 1) {
+		return true;
+	}
+	$subjectStrLen = mb_strlen($subjectString);
+	$stack = [];
+	for ($i = 0; $i < $subjectStrLen; $i ++) {
+		$char = $subjectString[$i];
+		if ($char == "(") {
+			array_push($stack, $char);
+		} else {
+			if (empty($stack)) {
+				return false;
+			} else {
+				array_pop($stack);
+			}
+		}
+	}
+	if (empty($stack)) {
+		return true;
+	}
+	return false;
+}
+$str2 = "(())(";
+var_dump(isStringValid($str2));
